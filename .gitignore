@@ -1,0 +1,79 @@
+# -------------------------
+# Environment variables
+# -------------------------
+.env
+.env.*
+*.env
+
+# -------------------------
+# Python virtual envs
+# -------------------------
+venv/
+.venv/
+env/
+ENV/
+
+# -------------------------
+# Python cache / build
+# -------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# -------------------------
+# Logs / temp files
+# -------------------------
+*.log
+*.tmp
+*.temp
+
+# -------------------------
+# Jupyter / notebooks
+# -------------------------
+.ipynb_checkpoints/
+
+# -------------------------
+# Database / local data
+# -------------------------
+*.sqlite3
+*.db
+
+# -------------------------
+# IDE / Editor
+# -------------------------
+.vscode/
+.idea/
+.cursor/
+.cursor/
+
+# -------------------------
+# OS-specific
+# -------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# -------------------------
+# Node / misc (just in case)
+# -------------------------
+node_modules/
+
+# -------------------------
+# Coverage / test artifacts
+# -------------------------
+.coverage
+htmlcov/
+pytest_cache/
+
+# -------------------------
+# Secrets / keys
+# -------------------------
+*.pem
+*.key
+*.crt
