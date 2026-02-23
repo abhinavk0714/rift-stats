@@ -1,6 +1,6 @@
-# player_dao.py
-from db import SessionLocal
-from models import Player
+# data/player_dao.py
+from .db import SessionLocal
+from .models import Player
 from sqlalchemy.exc import IntegrityError
 
 def create_player(name, gamer_tag, nationality=None, role=None, age=None):
@@ -32,7 +32,7 @@ def update_player(player_id, **kwargs):
     p = s.get(Player, player_id)
     if not p:
         s.close(); return None
-    for k,v in kwargs.items():
+    for k, v in kwargs.items():
         if hasattr(p, k):
             setattr(p, k, v)
     s.add(p); s.commit(); s.refresh(p)

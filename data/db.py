@@ -1,13 +1,15 @@
-# db.py
+# data/db.py
 import os
+from pathlib import Path
 from urllib.parse import quote_plus
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-load_dotenv()
+# Load .env from project root so uvicorn/Docker use the same credentials
+_project_root = Path(__file__).resolve().parent.parent
+load_dotenv(_project_root / ".env")
 
-# Use DB_* vars if set (password with # or @ works; we encode it). Else use DATABASE_URL.
 if all(os.getenv(k) for k in ("DB_HOST", "DB_USER", "DB_PASSWORD", "DB_NAME")):
     user = os.getenv("DB_USER")
     password = quote_plus(os.getenv("DB_PASSWORD", ""))
@@ -23,6 +25,5 @@ if not DATABASE_URL:
         "Set DATABASE_URL in .env, or set DB_HOST, DB_USER, DB_PASSWORD, DB_NAME (optional: DB_PORT)."
     )
 
-# echo=True during debugging; False for normal use
 engine = create_engine(DATABASE_URL, echo=False, future=True)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)

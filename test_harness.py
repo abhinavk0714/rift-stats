@@ -7,13 +7,13 @@ Usage:
 """
 import sys
 from datetime import datetime
-from db import engine, SessionLocal
-from models import Base
-from team_dao import create_team, list_teams, get_team, update_team, delete_team
-from player_dao import create_player, list_players, get_player, update_player, delete_player
-from team_roster_dao import add_roster_entry, list_roster_for_team
-from match_dao import create_match, list_matches, get_match, update_match, delete_match
-from match_stats_dao import create_match_stat, list_stats_for_match, update_match_stat, delete_match_stat, get_match_stat
+from data.db import engine
+from data.models import Base
+from data.team_dao import create_team, list_teams, get_team, update_team, delete_team
+from data.player_dao import create_player, list_players, get_player, update_player, delete_player
+from data.team_roster_dao import add_roster_entry, list_roster_for_team
+from data.match_dao import create_match, list_matches, get_match, update_match, delete_match
+from data.match_stats_dao import create_match_stat, list_stats_for_match, update_match_stat, delete_match_stat, get_match_stat
 from tabulate import tabulate
 
 def init_db():

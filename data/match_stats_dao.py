@@ -1,6 +1,6 @@
-# match_stats_dao.py
-from db import SessionLocal
-from models import MatchStat
+# data/match_stats_dao.py
+from .db import SessionLocal
+from .models import MatchStat
 
 def create_match_stat(match_id, team_id, gold_diff_15=None, kills=None, deaths=None, assists=None, towers_taken=None, dragons_taken=None, barons_taken=None, first_blood=None, win=False):
     s = SessionLocal()
@@ -25,7 +25,7 @@ def update_match_stat(stat_id, **kwargs):
     ms = s.get(MatchStat, stat_id)
     if not ms:
         s.close(); return None
-    for k,v in kwargs.items():
+    for k, v in kwargs.items():
         if hasattr(ms, k):
             setattr(ms, k, v)
     s.add(ms); s.commit(); s.refresh(ms); s.close()

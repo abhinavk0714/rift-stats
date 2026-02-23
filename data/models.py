@@ -1,4 +1,4 @@
-# models.py
+# data/models.py
 from sqlalchemy import (
     Column, Integer, String, Boolean, DateTime, ForeignKey, Text
 )
@@ -13,7 +13,7 @@ class Player(Base):
     name = Column(String(120), nullable=False)
     gamer_tag = Column(String(60), nullable=False, unique=True)
     nationality = Column(String(50))
-    role = Column(String(20))   # TOP,JG,MID,ADC,SUP
+    role = Column(String(20))
     age = Column(Integer)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 

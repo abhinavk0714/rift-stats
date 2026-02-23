@@ -1,6 +1,6 @@
-# team_dao.py
-from db import SessionLocal
-from models import Team
+# data/team_dao.py
+from .db import SessionLocal
+from .models import Team
 from sqlalchemy.exc import IntegrityError
 
 def create_team(name, short_name=None, region='LCK'):
@@ -32,7 +32,7 @@ def update_team(team_id, **kwargs):
     t = s.get(Team, team_id)
     if not t:
         s.close(); return None
-    for k,v in kwargs.items():
+    for k, v in kwargs.items():
         if hasattr(t, k):
             setattr(t, k, v)
     s.add(t); s.commit(); s.refresh(t)

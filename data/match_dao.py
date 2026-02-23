@@ -1,6 +1,6 @@
-# match_dao.py
-from db import SessionLocal
-from models import Match
+# data/match_dao.py
+from .db import SessionLocal
+from .models import Match
 
 def create_match(series_id, region, season, match_date, team_a_id, team_b_id, best_of=1, game_number=1, winner_team_id=None, patch=None, notes=None):
     s = SessionLocal()
@@ -25,7 +25,7 @@ def update_match(match_id, **kwargs):
     m = s.get(Match, match_id)
     if not m:
         s.close(); return None
-    for k,v in kwargs.items():
+    for k, v in kwargs.items():
         if hasattr(m, k):
             setattr(m, k, v)
     s.add(m); s.commit(); s.refresh(m); s.close()

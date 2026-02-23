@@ -1,0 +1,13 @@
+__pycache__
+*.pyc
+.env
+.env.*
+.git
+.gitignore
+venv
+*.md
+tests
+cli
+test_harness.py
+table_creation.sql
+seed_data.sql

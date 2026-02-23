@@ -1,6 +1,6 @@
-# team_roster_dao.py
-from db import SessionLocal
-from models import TeamRoster
+# data/team_roster_dao.py
+from .db import SessionLocal
+from .models import TeamRoster
 
 def add_roster_entry(team_id, player_id, start_date, end_date=None, role_at_team=None):
     s = SessionLocal()
@@ -25,7 +25,7 @@ def update_roster(entry_id, **kwargs):
     r = s.get(TeamRoster, entry_id)
     if not r:
         s.close(); return None
-    for k,v in kwargs.items():
+    for k, v in kwargs.items():
         if hasattr(r, k):
             setattr(r, k, v)
     s.add(r); s.commit(); s.refresh(r); s.close()
