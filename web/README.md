@@ -107,3 +107,18 @@ All are GET unless noted. Backend has no `/api` prefix.
 3. Open **http://localhost:5173**.  
    Confirm Dashboard (counts for players, teams, matches), Players, Teams, Matches, Roster (select team), Match Stats (select match) load and show data.  
    Click rows to open detail pages.
+
+## Screenshots (optional)
+
+With the backend and frontend running, you can capture all main GET views (dashboard, list/single/subset per table) in one go:
+
+```bash
+cd web
+npm install
+npx playwright install
+npm run screenshots
+```
+
+(First time only: `npx playwright install` downloads the browser.)
+
+Screenshots are saved under `web/screenshots/` (e.g. `01-dashboard.png`, `02-players-list.png`). You need at least one record per table (e.g. seed data) for single views. The folder is gitignored.
