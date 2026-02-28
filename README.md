@@ -1,11 +1,19 @@
 # rift-stats
-CSCE 548 Project — Rift Stats (data layer, business layer, service layer, Docker).
+
+LoL-style stats: teams, players, roster, matches, and match stats. Backend API + web dashboard.
+
+## Tech
+
+- **Backend**: Python, FastAPI, Pydantic. Postgres via SQLAlchemy-style access in `data/`.
+- **Frontend**: React, TypeScript, Vite, Tailwind CSS, React Query, Axios. Lives in `web/`.
+- **Database**: PostgreSQL (e.g. Supabase or local).
 
 ## Architecture
 
 - **Data layer** (`data/`): db, models, DAOs (team, player, team_roster, match, match_stats). Direct DB access, CRUD only.
 - **Business layer** (`business/`): Services for Team, Player, Team Roster, Match, and Match Stats; wrap DAOs and enforce validation.
 - **Service layer** (`api/`): FastAPI REST API; Pydantic models; 400/404/500 for errors. Endpoints: `/teams`, `/players`, `/roster`, `/matches`, `/match_stats`.
+- **Web app** (`web/`): React + Vite + TypeScript + Tailwind frontend; dashboard, list/detail views, and filters for all entities. See `web/README.md` for details.
 - **Console client** (`cli/console_client.py`): Calls API over HTTP and demonstrates full CRUD for all five entities.
 
 ## Environment
@@ -23,9 +31,9 @@ For Supabase, use the connection string from Project Settings → Database. If t
 ## Run locally (no Docker)
 
 1. **Database**: Run `table_creation.sql` and `seed_data.sql` in your Postgres/Supabase.
-2. **Install**: `pip install -r requirements.txt`
-3. **API**: `uvicorn api.main:app --reload` (serves at http://localhost:8000).
-4. **Console client**: In another terminal, `python cli/console_client.py`. It runs full CRUD (create → get → update → delete → get 404) for teams, players, roster, matches, and match_stats.
+2. **Backend**: `pip install -r requirements.txt`, then `uvicorn api.main:app --reload` (serves at http://localhost:8000). API docs: http://localhost:8000/docs.
+3. **Web app** (optional): In another terminal, `cd web`, then `npm install` and `npm run dev`. Frontend at http://localhost:5173. See `web/README.md` (e.g. `.env` and proxy).
+4. **Console client** (optional): `python cli/console_client.py` for full CRUD from the CLI.
 
 ## Run with Docker
 
@@ -36,12 +44,7 @@ A `Dockerfile` and `.dockerignore` are included so the API can be run in a conta
 3. **Docs**: Open http://localhost:8000/docs
 4. **Console client** (on host): `python cli/console_client.py`
 
-**Note — Docker in this environment:** Docker was not fully verified on the current setup due to environment constraints: Docker Desktop requires macOS 14+, and the Colima + QEMU path hit Homebrew issues (e.g. `formula.jws.json` / QEMU install failures on macOS 12). The service is hosted and tested locally with **uvicorn** (see “Run locally” above). For a future release, full Docker integration (build + run + screenshots) is planned once the environment supports it (e.g. OS update or resolved tooling).
-
-## Project 1 (data layer only)
-
-- **Test harness**: `python test_harness.py --no-seed` (uses `data/` and prints tables + one CRUD per DAO).
-- **Capture output**: `python test_harness.py --no-seed 2>&1 | tee console_output.txt`
+Docker has not been fully verified on all setups; local run with uvicorn (see above) is the primary development path.
 
 ## Tests
 

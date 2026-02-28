@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:ipv4": "NODE_OPTIONS='--dns-result-order=ipv4first' vite",
     "build": "tsc -b && vite build",
+    "clean": "rm -rf dist .vite *.tsbuildinfo",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "npm run build"

@@ -7,7 +7,7 @@ export function Navbar() {
         <Link to="/" className="text-lg font-bold text-accent hover:text-accent-hover">
           Rift Stats
         </Link>
-        <span className="text-sm text-text-muted">Project 3 Frontend</span>
+        <span className="text-sm text-text-muted">Stats Dashboard</span>
       </div>
     </header>
   )

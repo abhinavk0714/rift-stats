@@ -1,6 +1,6 @@
-# Rift Stats — Project 3 Frontend
+# Rift Stats — Web App
 
-React + Vite + TypeScript + Tailwind frontend for the Rift Stats API (Project 2 backend in this repo).
+React + Vite + TypeScript + Tailwind web app for the Rift Stats API (backend in this repo). Dashboard, players, teams, matches, roster, and match stats with dark theme and green accent.
 
 ## Stack
 
@@ -13,11 +13,11 @@ React + Vite + TypeScript + Tailwind frontend for the Rift Stats API (Project 2 
 - **ESLint** + **Prettier** (lint/format)
 - **npm** (package manager)
 
-## Backend (Project 2)
+## Backend
 
 The API runs with **uvicorn** on **port 8000** (no `/api` prefix at the backend).
 
-From the **repo root** (not inside `project3-frontend/`):
+From the **repo root** (not inside `web/`):
 
 ```bash
 # Ensure deps and DB are set up, then:
@@ -51,6 +51,13 @@ uvicorn api.main:app --reload
    ```
 
    Frontend is at **http://localhost:5173** (or the port Vite prints).
+
+3. **If you see `ECONNREFUSED ::1:8000`** (macOS often resolves localhost to IPv6):  
+   Stop the dev server (Ctrl+C), then run:
+   ```bash
+   npm run dev:ipv4
+   ```
+   This forces Node to prefer IPv4. Also ensure the backend is running (`uvicorn api.main:app --reload` from repo root).
 
 ## Environment variables
 
@@ -87,26 +94,16 @@ All are GET unless noted. Backend has no `/api` prefix.
 - `src/App.tsx` — Router and React Query provider.
 - Theme: dark background (`#0f172a`, `#1e293b`), accent green (`#22c55e`), hover `#16a34a`; see `tailwind.config.cjs`.
 
-## Acceptance test (local)
+## Verify locally
 
 1. **Start backend** (repo root):  
    `uvicorn api.main:app --reload`  
    Confirm API at `http://localhost:8000` (e.g. `http://localhost:8000/docs`).
 
-2. **In project3-frontend/**  
+2. **In `web/`**  
    `npm install`  
    `npm run dev`
 
 3. Open **http://localhost:5173**.  
    Confirm Dashboard (counts for players, teams, matches), Players, Teams, Matches, Roster (select team), Match Stats (select match) load and show data.  
    Click rows to open detail pages.
-
-4. Capture screenshots into `docs/screenshots/` (Dashboard, GET all per table, GET single examples, GET subset, backend terminal, frontend terminal).
-
-## Docker
-
-**TODO: Dockerize** (deferred to Project 4). Do not Dockerize the frontend for this deliverable.
-
-## Screenshots
-
-Place screenshots in `docs/screenshots/` (e.g. Dashboard, list and detail views, filters, backend/frontend terminals) and reference them in the PR.
