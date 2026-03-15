@@ -5,9 +5,13 @@ __pycache__
 .git
 .gitignore
 venv
+.venv
 *.md
 tests
 cli
 test_harness.py
 table_creation.sql
 seed_data.sql
+web
+system-test-screenshots
+*.pdf

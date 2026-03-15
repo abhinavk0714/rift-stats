@@ -1,0 +1,10 @@
+# Run the Rift Stats API in Docker. Database must exist and be reachable;
+# set DATABASE_URL (or DB_*) in .env (see README and .env.example).
+services:
+  api:
+    build: .
+    image: rift-stats-api
+    ports:
+      - "8000:8000"
+    env_file: .env
+    restart: unless-stopped

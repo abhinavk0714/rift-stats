@@ -1,6 +1,6 @@
 # Rift Stats — Web App
 
-React + Vite + TypeScript + Tailwind web app for the Rift Stats API (backend in this repo). Dashboard, players, teams, matches, roster, and match stats with dark theme and green accent.
+Frontend for the [Rift Stats](../) API (backend in the parent directory). React + Vite + TypeScript + Tailwind: dashboard plus full CRUD (create, read, update, delete) for players, teams, matches, roster, and match stats. Dark theme, green accent.
 
 ## Stack
 
@@ -69,30 +69,27 @@ uvicorn api.main:app --reload
 
 `vite.config.ts` proxies `/api` to `http://localhost:8000` and **strips** the `/api` prefix so the backend receives paths like `/teams`, `/players`, etc. No secrets are stored in the repo; use `.env` and `.env.example` only.
 
-## Endpoints used (discovered from backend)
+## API usage
 
-All are GET unless noted. Backend has no `/api` prefix.
+The app talks to the backend (no `/api` prefix at the API; Vite proxies `/api` → `http://localhost:8000`). All five resources support **full CRUD**:
 
-| Resource | List | Single | Subset / filter |
-|----------|------|--------|------------------|
-| Teams | `GET /teams` (?limit=) | `GET /teams/:id` | Client-side filter by region (TODO: server when available) |
-| Players | `GET /players` (?limit=) | `GET /players/:id` | Client-side filter by role (TODO: server when available) |
-| Matches | `GET /matches` (?limit=) | `GET /matches/:id` | Client-side filter by date/team (TODO: server when available) |
-| Roster | — | `GET /roster/:id` | `GET /roster/team/:teamId` (list by team) |
-| Match stats | — | `GET /match_stats/:id` | `GET /match_stats/match/:matchId` (list by match) |
+| Resource   | List (by team/match where applicable) | Single | Create | Update | Delete |
+|------------|----------------------------------------|--------|--------|--------|--------|
+| Players    | `GET /players`                        | `GET /players/:id` | POST on list page | Detail page | List + detail |
+| Teams      | `GET /teams`                          | `GET /teams/:id`   | POST on list page | Detail page | List + detail |
+| Matches    | `GET /matches`                        | `GET /matches/:id` | POST on list page | Detail page | List + detail |
+| Roster     | `GET /roster/team/:teamId`            | `GET /roster/:id`  | POST when team selected | Detail page | List + detail |
+| Match stats| `GET /match_stats/match/:matchId`     | `GET /match_stats/:id` | POST when match selected | Detail page | List + detail |
 
-**Assumptions / TODOs**
-
-- Filtering for players (role) and matches (date, team) is **client-side**; backend only supports `?limit=` on list endpoints. TODO in code: switch to server-side filtering when the API supports it.
-- Backend runs on **port 8000**; frontend dev proxy target is `http://localhost:8000`.
+List endpoints support `?limit=`. Filtering (e.g. players by role, matches by date) is **client-side**. Backend runs on **port 8000**; proxy target in `vite.config.ts` is `http://127.0.0.1:8000`.
 
 ## Project structure
 
-- `src/api/` — axios client and per-resource API modules (return parsed JSON).
-- `src/components/` — Layout, Sidebar, Navbar, DataTable, LoadingSpinner, ErrorMessage, ModalConfirm.
-- `src/pages/` — Dashboard, *Page (list + filter), *DetailPage (single).
+- `src/api/` — Axios client and per-resource modules (players, teams, matches, roster, matchStats) with full CRUD.
+- `src/components/` — Layout, Sidebar, DataTable, LoadingSpinner, ErrorMessage.
+- `src/pages/` — Dashboard, *Page (list + create form + search/filter), *DetailPage (single + edit/delete).
 - `src/App.tsx` — Router and React Query provider.
-- Theme: dark background (`#0f172a`, `#1e293b`), accent green (`#22c55e`), hover `#16a34a`; see `tailwind.config.cjs`.
+- Theme: dark background, green accent; see `tailwind.config.cjs`.
 
 ## Verify locally
 
@@ -100,25 +97,17 @@ All are GET unless noted. Backend has no `/api` prefix.
    `uvicorn api.main:app --reload`  
    Confirm API at `http://localhost:8000` (e.g. `http://localhost:8000/docs`).
 
-2. **In `web/`**  
-   `npm install`  
-   `npm run dev`
+2. **In `web/`:**  
+   `npm install` then `npm run dev`
 
 3. Open **http://localhost:5173**.  
-   Confirm Dashboard (counts for players, teams, matches), Players, Teams, Matches, Roster (select team), Match Stats (select match) load and show data.  
-   Click rows to open detail pages.
+   Check the dashboard, then each section (Players, Teams, Matches, Roster, Match Stats): lists load, row click opens detail, create forms work, edit/delete work on detail pages (and delete on list rows).
 
-## Screenshots (optional)
+## Scripts
 
-With the backend and frontend running, you can capture all main GET views (dashboard, list/single/subset per table) in one go:
-
-```bash
-cd web
-npm install
-npx playwright install
-npm run screenshots
-```
-
-(First time only: `npx playwright install` downloads the browser.)
-
-Screenshots are saved under `web/screenshots/` (e.g. `01-dashboard.png`, `02-players-list.png`). You need at least one record per table (e.g. seed data) for single views. The folder is gitignored.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start Vite dev server (default port 5173). Use `npm run dev:ipv4` if you see IPv6 connection errors to the backend. |
+| `npm run build` | Production build → `dist/`. |
+| `npm run screenshots` | Capture GET-only views (dashboard, list/single per resource) into `web/screenshots/`. Requires backend + frontend running. One-time: `npx playwright install chromium` (install Chromium for Playwright). |
+| `npm run full-system-test` | Run full CRUD flow (create → get all → get one → update → delete) for all five entities; saves screenshots to repo root `system-test-screenshots/`. Requires backend + frontend running. |
