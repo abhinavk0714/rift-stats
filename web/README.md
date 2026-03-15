@@ -1,6 +1,6 @@
 # Rift Stats — Web App
 
-Frontend for the [Rift Stats](../) API (backend in the parent directory). React + Vite + TypeScript + Tailwind: dashboard plus full CRUD (create, read, update, delete) for players, teams, matches, roster, and match stats. Dark theme, green accent.
+Frontend for the [Rift Stats](../README.md) API (backend in the parent directory). React + Vite + TypeScript + Tailwind: dashboard plus full CRUD (create, read, update, delete) for players, teams, matches, roster, and match stats. Dark theme, green accent.
 
 ## Stack
 
