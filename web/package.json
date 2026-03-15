@@ -9,6 +9,7 @@
     "build": "tsc -b && vite build",
     "clean": "rm -rf dist .vite *.tsbuildinfo",
     "screenshots": "node scripts/screenshot-pages.mjs",
+    "full-system-test": "node scripts/full-system-test.mjs",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "npm run build"

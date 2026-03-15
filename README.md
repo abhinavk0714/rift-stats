@@ -53,3 +53,8 @@ pytest tests/ -v
 ```
 
 Requires `DATABASE_URL` (or DB_* vars) for tests that hit the API.
+
+## Assignment deliverables
+
+- **Full System Test PDF:** See `FULL_SYSTEM_TEST.md`. Run `cd web && npm run full-system-test` (with backend + frontend up) to capture client screenshots into `system-test-screenshots/`. Add optional DB/API evidence as described there, then combine all images into one PDF (e.g. `full_system_test.pdf`) in the repo root.
+- **Deployment document PDF:** See `DEPLOYMENT.md` for step-by-step deployment instructions. Convert that file to PDF (e.g. `pandoc DEPLOYMENT.md -o deployment_document.pdf`) and place `deployment_document.pdf` in the repo root.
